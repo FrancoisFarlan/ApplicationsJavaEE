@@ -9,4 +9,25 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <!-- Module 3  -->
+  <servlet>
+ 		<servlet-name>jeu</servlet-name>
+ 		<jsp-file>/WEB-INF/modules/module3/jeu.jsp</jsp-file>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>jeu</servlet-name>
+ 		<url-pattern>/modules/module3/jeu.jsp</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+ 		<servlet-name>resultat</servlet-name>
+ 		<jsp-file>/WEB-INF/modules/module3/resultat.jsp</jsp-file>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>resultat</servlet-name>
+ 		<url-pattern>/modules/module3/resultat.jsp</url-pattern>
+ 	</servlet-mapping>
 </web-app>
