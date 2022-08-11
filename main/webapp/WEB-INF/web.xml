@@ -30,4 +30,37 @@
  		<servlet-name>resultat</servlet-name>
  		<url-pattern>/modules/module3/resultat.jsp</url-pattern>
  	</servlet-mapping>
+ 	
+ 	<!-- Module4 -->
+ 	<servlet>
+ 		<servlet-name>accueil</servlet-name>
+ 		<jsp-file>/WEB-INF/modules/module4/accueil.jsp</jsp-file>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>accueil</servlet-name>
+ 		<url-pattern>/modules/module4/accueil.jsp</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	
+ 	<servlet>
+ 		<servlet-name>ajout</servlet-name>
+ 		<jsp-file>/WEB-INF/modules/module4/ajout.jsp</jsp-file>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>ajout</servlet-name>
+ 		<url-pattern>/modules/module4/ajout.jsp</url-pattern>
+ 	</servlet-mapping>
+ 	
+ 	<servlet>
+ 		<servlet-name>visualiser</servlet-name>
+ 		<jsp-file>/WEB-INF/modules/module4/visualiser.jsp</jsp-file>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>visualiser</servlet-name>
+ 		<url-pattern>/modules/module4/visualiser.jsp</url-pattern>
+ 	</servlet-mapping>
+ 	
 </web-app>
