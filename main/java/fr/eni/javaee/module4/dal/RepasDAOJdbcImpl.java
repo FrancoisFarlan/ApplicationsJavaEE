@@ -18,7 +18,7 @@ public class RepasDAOJdbcImpl implements RepasDAO{
 	
 	private static final String INSERT_REPAS = "INSERT INTO Repas(date_repas, heure_repas) VALUES(? , ?)";
 	private static final String INSERT_ALIMENTS = "INSERT INTO Aliments(id_repas, nom_aliment) VALUES(?, ?)";
-	private static final String SELECT_REPAS = "SELECT id_repas, date_repas, heure_repas FROM Repas ORDER BY date_repas DESC";
+	private static final String SELECT_REPAS = "SELECT id_repas, date_repas, heure_repas FROM Repas ORDER BY date_repas DESC, heure_repas DESC";
 	private static final String SELECT_ALIMENTS = "SELECT id_repas, nom_aliment FROM Aliments WHERE id_repas = ?";
 	
 	@Override

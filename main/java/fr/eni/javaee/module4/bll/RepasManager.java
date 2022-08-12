@@ -27,9 +27,10 @@ public class RepasManager {
 		
 		
 		this.validerRepas(r, exception);
-		
 		if(exception.hasErreurs()) {
+			
 			throw exception;
+			
 		} else {
 		this.daoRepas.insertRepas(r);
 		}
@@ -51,7 +52,7 @@ public class RepasManager {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_REPAS_TIME_ERREUR);
 		}
 		
-		if(r.getAliments().isEmpty() || r.getAliments().size() == 0) {
+		if(r.getAliments()==null || r.getAliments().isEmpty()) {
 			businessException.ajouterErreur(CodesResultatBLL.REGLE_REPAS_ALIMENTS_ERREUR);
 		}
 	}

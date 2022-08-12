@@ -16,7 +16,7 @@
 	rel="stylesheet"
 	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
 <title>Mes applications</title>
 </head>
 
@@ -100,8 +100,9 @@
 		<a
 			href="<%=request.getContextPath()%>/tps/suiviRepas/ServletAjoutRepas">
 			<button type="button" class="me-3 btn btn-outline-dark">Ajouter
-				un nouveau repas</button>
-		</a> <a href="<%=request.getContextPath()%>/modules/module4/accueil.jsp">
+				un nouveau repas</button></a>
+				
+				<a href="<%=request.getContextPath()%>/modules/module4/accueil.jsp">
 			<button type="button" class="ms-3 btn btn-outline-dark">Retour
 				à l'accueil</button>
 		</a>

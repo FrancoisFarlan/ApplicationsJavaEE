@@ -8,7 +8,8 @@ public abstract class CodesResultatServlets {
 	/**
 	 * Format Repas incorrect
 	 */
-	public static final int FORMAT_REPAS_ERREUR=30000;
+	public static final int FORMAT_DATE_REPAS_ERREUR=30000;
+	public static final int FORMAT_HEURE_REPAS_ERREUR=30001;
 	
 	
 }
