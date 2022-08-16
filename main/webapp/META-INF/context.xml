@@ -7,7 +7,7 @@
 	driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 	type="javax.sql.DataSource"
 	
-	url="jdbc:sqlserver://localhost;databasename=SUIVI_REPAS;trustServerCertificate=true"
+	url="jdbc:sqlserver://localhost;databasename=LISTES_COURSES;trustServerCertificate=true"
 	username="utilisateurBDD"
 	password="Pa$$w0rd"
 	
