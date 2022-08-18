@@ -17,7 +17,7 @@ public class ListeCourseDAOJdbcImpl implements ListeCourseDAO {
 	private static final String INSERT_LISTE ="INSERT INTO LISTES(nom) VALUES(?)";
 	private static final String INSERT_ARTICLE ="INSERT INTO ARTICLES(nom, id_liste) VALUES(?,?)"; 
 	private static final String SELECT_ALL="SELECT id, nom FROM LISTES";
-	private static final String SELECT_BY_ID ="SELECT l.id, l.nom, a.id, a.nom, a.coche FROM LISTES l "
+	private static final String SELECT_BY_ID ="SELECT l.id as id_liste, l.nom as nom_liste, a.id id_article, a.nom as nom_article, a.coche FROM LISTES l "
 			+ "LEFT JOIN ARTICLES a ON l.id = a.id_liste WHERE l.id = ?"; 
 	private static final String DELETE_ARTICLE ="DELETE FROM ARTICLES WHERE id = ?";
 	private static final String DELETE_LISTE ="DELETE FROM LISTES WHERE id = ?";
@@ -97,37 +97,135 @@ public class ListeCourseDAOJdbcImpl implements ListeCourseDAO {
 
 	@Override
 	public List<ListeCourse> selectAll() throws BusinessException {
-		return null;
+		List<ListeCourse> listesCourse = new ArrayList<ListeCourse>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				listesCourse.add(new ListeCourse(rs.getInt("id"), rs.getString("nom")));
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return listesCourse;
 		
 	}
 
 	@Override
 	public ListeCourse selectById(int id) throws BusinessException {
-		return null;
-	
+
+		ListeCourse listeCourse = new ListeCourse();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			boolean premiereLigne=true;
+			while(rs.next())
+			{
+				if(premiereLigne)
+				{
+					listeCourse.setId(rs.getInt("id_liste"));
+					listeCourse.setNom(rs.getString("nom_liste"));
+					premiereLigne=false;
+				}
+				if(rs.getString("nom_article")!=null)
+				{
+					listeCourse.getArticles().add(new Article(rs.getInt("id_article"), rs.getString("nom_article"), rs.getBoolean("coche")));
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		if(listeCourse.getId()==0)
+		{
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_INEXISTANTE);
+			throw businessException;
+		}
+		
+		return listeCourse;
 		
 	}
 
 	@Override
 	public void deleteArticle(int idArticle) throws BusinessException {
-		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ARTICLE);
+			pstmt.setInt(1, idArticle);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException ex) {
+			
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.SUPPRESSION_ARTICLE_ERREUR);
+			throw businessException;
+		}
 	}
 
 	@Override
 	public void cocherArticle(int idArticle) throws BusinessException {
-		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(COCHER_ARTICLE);
+			pstmt.setInt(1, idArticle);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.COCHE_ARTICLE_ERREUR);
+			throw businessException;
+		}
 		
 	}
 
 	@Override
 	public void decocherArticle(int idArticle) throws BusinessException {
 		
-		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DECOCHER_ARTICLE);
+			pstmt.setInt(1, idArticle);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DECOCHE_ARTICLE_ERREUR);
+			throw businessException;
+		}
 	}
 
 	@Override
 	public void decocherListeCourse(int idListeCourse) throws BusinessException {
 		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DECOCHER_ARTICLES);
+			pstmt.setInt(1, idListeCourse);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.DECOCHE_ARTICLES_ERREUR);
+			throw businessException;
+		}
 		
 	}
 
